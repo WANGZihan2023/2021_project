@@ -92,8 +92,6 @@ public class Criteria {
         return isDocument;
     }
 
-    public void addToName2Cri(String key, Criteria value) {
-        name2cri.put(key, value);
-    }
+    
 
 }
