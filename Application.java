@@ -84,7 +84,7 @@ public class Application {
 
                 if (criteria3 != null && criteria4 != null) {
                     if (logicOp.equals("&&") || logicOp.equals("||")) {
-                        Criteria binaryCriteria = new CompositeCriteria(criName1, criteria3, logicOp, criteria4);
+                        Criteria binaryCriteria = new compositeCriteria(criName1, criteria3, logicOp, criteria4);
                         System.out.println("Binary criterion created successfully.");
                     } else {
                         System.out.println("Invalid logical operator. Use '&&' or '||'.");
