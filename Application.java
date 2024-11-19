@@ -140,30 +140,13 @@ public class Application {
                 String attrName = commandWords[2];
                 String op = commandWords[3];
                 String val = commandWords[4];
-
-                if (criName.length() == 2 && criName.matches("[a-zA-Z]{2}")) {
-                    boolean valid = false;
-                    if (attrName.equals("name") && op.equals("contains") && val.startsWith("\"") && val.endsWith("\"")) {
-                        valid = true;
-                    } else if (attrName.equals("type") && op.equals("equals") && val.startsWith("\"") && val.endsWith("\"")) {
-                        valid = true;
-                    } else if (attrName.equals("size") && (op.equals(">") || op.equals("<") || op.equals(">=") || op.equals("<=") || op.equals("==") || op.equals("!=")) && val.matches("\\d+")) {
-                        valid = true;
-                    }
-
-                    if (valid) {
-                        Criteria criteria = new Criteria(criName, attrName, op, val);
-                        System.out.println("Simple criterion created successfully.");
-                    } else {
-                        System.out.println("Invalid criteria parameters.");
-                    }
-                } else {
-                    System.out.println("Invalid criteria name.");
-                }
+                Criteria criteria = new Criteria("cri1", "name", "equals", "value");
+                criteria.setAttrName(attrName);
+                criteria.setOp(op);
+                criteria.setVal(val);
+                criteria.setCriName(criName);
+                System.out.println(cvfs.getDir().toString()+">");
             }
-
-            System.out.println(cvfs.getDir().toString()+">");
-        }
 
         scanner.close();
     }
