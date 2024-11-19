@@ -48,7 +48,9 @@ public class Criteria {
     public void setVal(String val) {
         this.val = val;
     }
-
+    public void addnamecri(String criName,Criteria criteria){
+        name2cri.put(criName,this);
+    }
 
     public static String notOp(String op){
         String notOp = "";
