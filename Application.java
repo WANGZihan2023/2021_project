@@ -98,13 +98,17 @@ public class Application {
                     boolean isDocument = criteria.IsDocument(criteria);
                     if (isDocument == false){
                         System.out.println("It is not a document");
+                        continue;
                     }
-                    if (criteria instanceof compositeCriteria){}
-                    else{
-                        System.out.println("attrName is " + criteria.getAttrName() + "\n" 
-                            + "op is " + criteria.getOp() + "\n" 
-                            + "val is " + criteria.getVal());
-                    }
+                    if (criteria instanceof compositeCriteria){
+                        System.out.println("attrName is " + criteria.getAttrName() +"\n" +
+                                           "op is " + criteria.getOp()+"\n" + 
+                                           "val is "+criteria.getVal()+"\n" +
+                                           "logicOp is " + ((compositeCriteria) criteria).getLogicOp());}
+                    else{System.out.println("attrName is " + criteria.getAttrName() +"\n" +
+                                            "op is " + criteria.getOp()+"\n" +
+                                            "val is "+criteria.getVal());}
+                }
                 }
             }
             if (commandWords[0].equals("search")){
