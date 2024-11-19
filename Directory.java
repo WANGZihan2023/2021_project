@@ -41,4 +41,19 @@ public class Directory {
     public String toString(){
         return DirStr;
     }
+    public Map<String,Object> getMap(){
+        return map;
+    }
+    public String getDirStr(){
+        return DirStr;
+    }
+    public void setDirStr(String dirname){
+        DirStr=dirname;
+    }  
+    public void setMap(Map<String,Object> map){
+        this.map=map;
+    }
+    public void setSize(int size){
+        this.size=size;
+    }
 }
