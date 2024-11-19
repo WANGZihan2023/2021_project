@@ -92,6 +92,35 @@ public class Criteria {
         return isDocument;
     }
 
+    public boolean matches(Document doc) {
+        switch (attrName) {
+            case "name":
+                return op.equals("contains") && doc.getDocName().contains(val.replace("\"", ""));
+            case "type":
+                return op.equals("equals") && doc.getDocType().equals(val.replace("\"", ""));
+            case "size":
+                int docSize = doc.getSize();
+                int criteriaValue = Integer.parseInt(val);
+                switch (op) {
+                    case ">":
+                        return docSize > criteriaValue;
+                    case "<":
+                        return docSize < criteriaValue;
+                    case ">=":
+                        return docSize >= criteriaValue;
+                    case "<=":
+                        return docSize <= criteriaValue;
+                    case "==":
+                        return docSize == criteriaValue;
+                    case "!=":
+                        return docSize != criteriaValue;
+                    default:
+                        return false;
+                }
+            default:
+                return false;
+        }
+    }
     
 
 }
