@@ -32,21 +32,39 @@ public class Criteria {
         return attrName;
     }
     public void setAttrName(String attrName) {
-        this.attrName = attrName;
+        if (attrName.equals("name") || attrName.equals("type") || attrName.equals("size")) {
+            this.attrName = attrName;
+        } else {
+            System.out.println("Invalid attrName.");
+        }
     }
     public String getOp() {
         return op;
     }
     public void setOp(String op) {
-        if (Objects.equals(op, "<")|| (Objects.equals(op, ">"))||(Objects.equals(op, ">="))||(Objects.equals(op, "<="))||(Objects.equals(op, "=="))||(Objects.equals(op, "!="))) {
+        if (attrName.equals("name") && op.equals("contains")) {
             this.op = op;
+        } else if (attrName.equals("type") && op.equals("equals")) {
+            this.op = op;
+        } else if (attrName.equals("size") && (op.equals(">") || op.equals("<") || op.equals(">=") || op.equals("<=") || op.equals("==") || op.equals("!="))) {
+            this.op = op;
+        } else {
+            System.out.println("Invalid op for attrName.");
         }
     }
     public String getVal() {
         return val;
     }
     public void setVal(String val) {
-        this.val = val;
+        if (attrName.equals("name") && val.startsWith("\"") && val.endsWith("\"")) {
+            this.val = val;
+        } else if (attrName.equals("type") && val.startsWith("\"") && val.endsWith("\"")) {
+            this.val = val;
+        } else if (attrName.equals("size") && val.matches("\\d+")) {
+            this.val = val;
+        } else {
+            System.out.println("Invalid val for attrName.");
+        }
     }
     public void addnamecri(String criName,Criteria criteria){
         name2cri.put(criName,this);
