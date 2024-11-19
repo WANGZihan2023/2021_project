@@ -12,8 +12,7 @@ public class compositeCriteria extends Criteria{
         this.criteria1 = criteria1;
         this.criteria2 = criteria2;
         this.logicOp = logicOp;
-
-        name2cri.put(criName,this);
+        super.addnamecri(criName,this);
     }
     public Criteria getCriteria1(){return criteria1;}
     public Criteria getCriteria2(){return criteria2;}
