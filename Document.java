@@ -14,4 +14,24 @@ public class Document {
     public int getSize(){
         return size;
     }
+
+    public String getDocName(){
+        return docName;
+    }
+    public String getDocType(){
+        return docType;
+    }
+    public String getDocContent(){
+        return docContent;
+    }
+    public void setDocName(String name){
+        this.docName=name;
+    }
+    public void setDocType(String type){
+        this.docType=type;
+    }
+    public void setDocContent(String content){
+        this.docContent=content;
+    }
+
 }
