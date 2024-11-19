@@ -111,10 +111,28 @@ public class Application {
                 }
                 }
             }
-            if (commandWords[0].equals("search")){
+            if (commandWords[0].equals("search")) {
                 String criName = commandWords[1];
                 Criteria criteria = Criteria.getCriteria(criName);
+                int totalFiles = 0;
+                int totalSize = 0;
 
+                if (criteria != null) {
+                    for (Object obj : cvfs.getDir().getMap().values()) {
+                        if (obj instanceof Document) {
+                            Document doc = (Document) obj;
+                            if (criteria.matches(doc)) {
+                                System.out.println("Document: " + doc.getDocName() + ", Size: " + doc.getSize());
+                                totalFiles++;
+                                totalSize += doc.getSize();
+                            }
+                        }
+                    }
+                    System.out.println("Total files: " + totalFiles);
+                    System.out.println("Total size: " + totalSize);
+                } else {
+                    System.out.println("Criterion " + criName + " does not exist.");
+                }
             }
 
             if (commandWords[0].equals("newSimpleCri")) {
