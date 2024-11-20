@@ -33,10 +33,16 @@ public class Application {
             }
 
             else if (commandWords[0].equals("newDisk")) {
-                // Check if the second argument is a valid integer
+                // 如果有就先关掉
+                if (cvfs.getDisk() != null) {
+                    System.out.println("Closing the existing disk before creating a new one.");
+                    cvfs.close();
+                }
+
+                // 检测是否是数字
                 if (commandWords.length < 2 || !commandWords[1].matches("\\d+")) {
                     System.out.println("Invalid input. Please provide a valid number for the disk size.");
-                    continue; // Continue to the next iteration of the loop
+                    continue; 
                 }
                 int size = Integer.parseInt(commandWords[1]);
                 Disk disk = new Disk(size);
@@ -62,9 +68,14 @@ public class Application {
             }
 
             else if (commandWords[0].equals("newDir")) {
-                Directory dir = new Directory(commandWords[1]);
-                cvfs.getDir().put(commandWords[1], dir);
-                System.out.println("New directory created successfully.");
+                // 检测同名
+                if (cvfs.getDir().get(commandWords[1]) != null) {
+                    System.out.println("A directory with the name '" + commandWords[1] + "' already exists. Cannot create a directory with same name.");
+                } else {
+                    Directory dir = new Directory(commandWords[1]);
+                    cvfs.getDir().put(commandWords[1], dir);
+                    System.out.println("New directory created successfully.");
+                }
             }
 
             else if (commandWords[0].equals("delete")) {
@@ -188,6 +199,11 @@ public class Application {
 
 
             else if (commandWords[0].equals("save")) {
+                //如果超过大小，则超出部分会保存在虚拟磁盘上，但无法执行save命令
+                if (cvfs.getDir().getAllSize()>cvfs.getDisk().getSize()){
+                    System.out.println("This disk is full, please delete some files and then run the 'save' command");
+                    continue;
+                }
                 stack.get(0).save(commandWords[1]);//对于根目录进行操作，stack第一个就是Disk的根目录。save方法写在Directory类里。
                 try (FileWriter writer = new FileWriter(commandWords[1], true)) { // 以追加模式打开文件
                     writer.write(cvfs.getDisk().getSize() + System.lineSeparator()); // 写入内容并换行
@@ -242,10 +258,14 @@ public class Application {
                     System.err.println("load error"+e.getMessage());
                 }
             }
-            //一般情况
+            // 一般情况
             else{
                 System.out.println("Invalid input, please enter again:");
                 continue;
+            }
+            // 大小检测，出问题会有提示
+            if (cvfs.getDir().getAllSize()>cvfs.getDisk().getSize()){
+                System.out.println("This disk is full, please note");
             }
 
             System.out.println(cvfs.getDir().toString() + ">");
